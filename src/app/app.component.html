@@ -1,6 +1,4 @@
 <div class="items" [formGroup]="fg">
-  <input formControlName="costApartaments" type="number" class="item" placeholder="Стоимость квартиры" autocomplete="off">
-  <input formControlName="percentCredit" type="number" class="item" placeholder="% ипотеки" autocomplete="off">
   <!-- <div class="table-filters__calendar">
     <span>с</span>
     <div class="table-filters__datepicker">
@@ -29,10 +27,19 @@
       </mat-form-field>
     </div>
   </div> -->
+  <label>Стоимость квартиры</label>
+  <input formControlName="costApartaments" type="number" class="item" placeholder="Стоимость квартиры" autocomplete="off">
+  <!-- <label>% ипотеки</label>
+  <input formControlName="percentCredit" type="number" class="item" placeholder="% ипотеки" autocomplete="off"> -->
+  <label>Коплю каждый месяц</label>
   <input formControlName="cashMonth" type="number" class="item" placeholder="Коплю каждый месяц" autocomplete="off">
-  <input formControlName="costRental" type="number" class="item" placeholder="Стоимость аренды в месяц" autocomplete="off">
+  <!-- <label>Стоимость аренды в месяц</label>
+  <input formControlName="costRental" type="number" class="item" placeholder="Стоимость аренды в месяц" autocomplete="off"> -->
+  <label>Уже накопленная сумма</label>
   <input formControlName="cash" type="number" class="item" placeholder="Уже накопленная сумма" autocomplete="off">
+  <label>% изменения стоимости квартир</label>
   <input formControlName="percentCostChange" type="number" class="item" placeholder="% изменения стоимости квартир" autocomplete="off">
+  <label>% изменения накопленного в месяц</label>
   <input formControlName="percentSalaryChange" type="number" class="item" placeholder="% изменения накопленного в месяц" autocomplete="off">
 </div>
 

@@ -39,18 +39,28 @@ export class AppComponent implements OnInit {
   });
  }
 
+ getIf(value) {
+  return !value.costApartaments || !value.cashMonth || !value.percentSalaryChange || !value.percentCostChange || !value.cash;
+ }
+
   getResult() {
     const value = this.fg.value;
+    if (this.getIf(value)) {
+      return;
+    }
     let remain = value.costApartaments - value.cash;
     let cashMonth = value.cashMonth;
+    let costApartaments = value.costApartaments;
+    const percentSalaryChange = 1 + value.percentSalaryChange / 100;
+    const percentCostChange = 1 + value.percentCostChange / 100;
     let i = 0;
     while (remain > 0) {
       i++;
-      remain -= cashMonth;
+      remain = (costApartaments - value.cash) - cashMonth * i;
       if ( i % 12 === 0) {
-        cashMonth = cashMonth * value.percentSalaryChange;
+        cashMonth = cashMonth * percentSalaryChange;
+        costApartaments = costApartaments * percentCostChange;
       }
-      console.log(i);
     }
     this.termCopy = i;
   }
