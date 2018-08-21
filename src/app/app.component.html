@@ -1,47 +1,39 @@
-<div class="items" [formGroup]="fg">
-  <!-- <div class="table-filters__calendar">
-    <span>с</span>
-    <div class="table-filters__datepicker">
-      <mat-form-field>
-        <input
-          matInput
-          [matDatepicker]="datesFrom"
-          [min]="currentDate"
-          formControlName="datesFrom"
-        >
-        <mat-datepicker-toggle matSuffix [for]="datesFrom"></mat-datepicker-toggle>
-        <mat-datepicker #datesFrom disabled="false"></mat-datepicker>
-      </mat-form-field>
+<div class="form">
+  <div class="form__items" [formGroup]="fg">
+    <div class="form__block">
+      <h3 class="form__subtitle">Квартира</h3>
+      <label class="form__label">Стоимость квартиры, млн руб</label>
+      <input formControlName="cost_apartaments" class="form__input" autocomplete="off">
+      <label class="form__label">Изменение стоимости квартиры в год, %</label>
+      <input formControlName="percent_cost_change" class="form__input" autocomplete="off">
     </div>
-    <span>до</span>
-    <div class="table-filters__datepicker">
-      <mat-form-field>
-        <input
-          matInput
-          [matDatepicker]="datesTo"
-          [min]="currentDate"
-          formControlName="datesTo"
-        >
-        <mat-datepicker-toggle matSuffix [for]="datesTo"></mat-datepicker-toggle>
-        <mat-datepicker #datesTo disabled="false"></mat-datepicker>
-      </mat-form-field>
+    <div class="form__block">
+      <h3 class="form__subtitle">Условия ипотеки</h3>
+      <label class="form__label">Процент годовых, %</label>
+      <input formControlName="percent_credit" class="form__input" autocomplete="off">
+      <label class="form__label">Срок, лет</label>
+      <input formControlName="percent_credit" class="form__input" autocomplete="off">
     </div>
-  </div> -->
-  <label>Стоимость квартиры</label>
-  <input formControlName="costApartaments" type="number" class="item" placeholder="Стоимость квартиры" autocomplete="off">
-  <!-- <label>% ипотеки</label>
-  <input formControlName="percentCredit" type="number" class="item" placeholder="% ипотеки" autocomplete="off"> -->
-  <label>Коплю каждый месяц</label>
-  <input formControlName="cashMonth" type="number" class="item" placeholder="Коплю каждый месяц" autocomplete="off">
-  <!-- <label>Стоимость аренды в месяц</label>
-  <input formControlName="costRental" type="number" class="item" placeholder="Стоимость аренды в месяц" autocomplete="off"> -->
-  <label>Уже накопленная сумма</label>
-  <input formControlName="cash" type="number" class="item" placeholder="Уже накопленная сумма" autocomplete="off">
-  <label>% изменения стоимости квартир</label>
-  <input formControlName="percentCostChange" type="number" class="item" placeholder="% изменения стоимости квартир" autocomplete="off">
-  <label>% изменения накопленного в месяц</label>
-  <input formControlName="percentSalaryChange" type="number" class="item" placeholder="% изменения накопленного в месяц" autocomplete="off">
+    <div class="form__block">
+      <h3 class="form__subtitle">Финансы</h3>
+      <label class="form__label">Уже накопленная сумма</label>
+      <input formControlName="cash" class="form__input" autocomplete="off">
+      <label class="form__label">Месячная зарплата, тыс руб</label>
+      <input formControlName="salary" class="form__input" autocomplete="off">
+      <label class="form__label">Месячные затраты без учета проживания, тыс руб</label>
+      <input formControlName="spending" class="form__input" autocomplete="off">
+      <label class="form__label">Изменение зарплаты за год, %</label>
+      <input formControlName="percent_salary_change" class="form__input" autocomplete="off">
+      <label class="form__label">Изменение месячных затрат за год, %</label>
+      <input formControlName="percent_spending_change" class="form__input" autocomplete="off">
+    </div>
+    <div class="form__block">
+      <h3 class="form__subtitle">Аренда</h3>
+      <label class="form__label">Стоимость аренды в месяц, тыс руб</label>
+      <input formControlName="cost_rental" class="form__input" autocomplete="off">
+      <label class="form__label">Изменение стоимости аренды в год, %</label>
+      <input formControlName="percent_cost_rental_change" class="form__input" autocomplete="off">
+    </div>
+  </div>
+  <div class="result">Накопишь через {{termCopy}} месяцев</div>
 </div>
-
-<div class="result">{{termCopy}}</div>
-
