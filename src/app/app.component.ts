@@ -32,12 +32,12 @@ export class AppComponent implements OnInit {
     term_credit: 10,
 
     cash: 500,
-    salary: 40,
-    spending: 20,
-    percent_salary_change: 15,
+    salary: 41.5,
+    spending: 18,
+    percent_salary_change: 60,
     percent_spending_change: 15,
 
-    cost_rental: 20,
+    cost_rental: 18,
     percent_cost_rental_change: 10
   });
   this.getResult();
@@ -48,6 +48,10 @@ export class AppComponent implements OnInit {
 
  afterYear(value, persent) {
   return value * (1 + persent / 100);
+ }
+
+ afterMonth(value, persent) {
+  return value * (1 + persent / 12 / 100);
  }
 
  getCashMonth(salary, spending, cost_rental) {
@@ -63,27 +67,29 @@ export class AppComponent implements OnInit {
     // if (this.getIf(value)) {
     //   return;
     // }
-    console.log(value);
     let cost_apartaments = value.cost_apartaments * 1000000;
     let salary = value.salary * 1000;
     let spending = value.spending * 1000;
     let cost_rental = value.cost_rental * 1000;
-    const cash = value.cash * 1000;
+    let cash = value.cash * 1000;
     const start_remain = cost_apartaments - cash;
     let remain = start_remain;
     let cash_month = this.getCashMonth(salary, spending, cost_rental);
     let i = 0;
     while (remain > 0) {
       i++;
-      remain = start_remain - (cost_apartaments - value.cash) - cash_month * i;
-      if ( i % 12 === 0) {
-        cost_apartaments = this.afterYear(cost_apartaments, value.percent_cost_change);
-        salary = this.afterYear(salary, value.percent_salary_change);
-        spending = this.afterYear(spending, value.percent_spending_change);
+      cash_month = this.getCashMonth(salary, spending, cost_rental);
+      console.log(cash_month);
+      cash = cash + cash_month;
+      remain = (cost_apartaments - cash);
+      cost_apartaments = this.afterMonth(cost_apartaments, value.percent_cost_change);
+      spending = this.afterMonth(spending, value.percent_spending_change);
+      if (i % 12 === 0) {
         cost_rental = this.afterYear(cost_rental, value.percent_cost_rental_change);
-        cash_month = this.getCashMonth(salary, spending, cost_rental);
+        salary = this.afterYear(salary, value.percent_salary_change);
       }
-      if ( i >= 200 ) {
+      if ( i >= 500 ) {
+        this.termCopy = 500;
         return;
       }
     }
