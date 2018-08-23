@@ -1,0 +1,29 @@
+<label class="slider">
+  <span class="slider__label">{{ label }}</span>
+  <div class="slider__block">
+    <input
+      class="slider__input"
+      [value]="inputVal"
+      autocomplete="off"
+      (input)="onInput($event)"
+      (blur)="onChange($event)"
+      (keypress)="onKeyPress($event)"
+      (change)="onChange($event)"
+      (keyup)="handleCommaKeyForInput($event)"
+      #myInput>
+      <div class="slider__subblock">
+        <div class="slider__range">
+          <span>{{ slider?.min }}</span>
+          <span>{{ slider?.max }}</span>
+        </div>
+        <mat-slider
+          class="slider__select"
+          [min]="slider ? slider.min : 0"
+          [max]="slider ? slider.max : 0"
+          [step]="slider ? slider.step : 0"
+          [value]="sliderVal"
+          (input)="onSliderChange($event)">
+        </mat-slider>
+      </div>
+  </div>
+</label>

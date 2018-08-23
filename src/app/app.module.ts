@@ -5,10 +5,12 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormSliderInputComponent } from './form-slider-input/form-slider-input.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FormSliderInputComponent
   ],
   imports: [
     BrowserModule,

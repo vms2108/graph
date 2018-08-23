@@ -1,0 +1,130 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$bonum-app-primary: mat-palette($mat-orange);
+$bonum-app-accent:  mat-palette($mat-orange, A200, A100, A400);
+$bonum-app-warn:    mat-palette($mat-red);
+
+$bonum-app-theme: mat-light-theme($bonum-app-primary, $bonum-app-accent, $bonum-app-warn);
+
+@include angular-material-theme($bonum-app-theme);
+
+.form__select{
+  &.mat-slider.mat-slider-horizontal{
+    width: 100%;
+    padding: 0;
+    height: 20px;
+    display: block;
+    margin-top: -10px;
+    & .mat-slider-wrapper{
+      top: 9px;
+      left: 4px;
+      right: 4px;
+    }
+    & .mat-slider-track-wrapper{
+      height: 1px;
+    }
+    & .mat-slider-track-background{
+      background-color: rgba(0,0,0,0);
+    }
+    & .mat-slider-track-fill{
+      background-color: #F5921A;
+    }
+    & .mat-slider-thumb{
+      background-color: #F5921A;
+    }
+    & .mat-slider-thumb-container{
+      transition: none;
+    }
+    &.mat-slider-min-value{
+      & .mat-slider-thumb{
+        border: none;
+        background-color: #F5921A;
+      }
+    }
+  }
+}
+
+.mat-calendar {
+  background: #2D2D37;
+  font-family: "Ubuntu";
+  border-radius: 15px;
+  &-header {
+    background: #2D2D37;
+    border-radius: 15px;
+  }
+  &-content {
+    background: #2D2D37;
+    border-radius: 15px;
+  }
+  &-body {
+    background: #2D2D37;
+    &-cell {
+      & .mat-calendar-body-cell-content {
+        width: 44px;
+        height: 44px;
+        color: #fff;
+        &:hover {
+          background: #009CFF;
+        }
+      }
+      & .mat-calendar-body-selected {
+        background: #009CFF;
+      }
+    }
+
+    &-label {
+      font-family: "Ubuntu";
+      color: #F5921A !important;
+    }
+  }
+  &-arrow {
+    border-top-color: #fff;
+    position: relative;
+    margin-left: 9px;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 1px;
+      right: -5px;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top-width: 5px;
+      border-top-style: solid;
+      border-top-color: #2D2D37;
+    }
+  }
+}
+
+.mat-button-wrapper {
+  font-family: "Ubuntu";
+  font-size: 14px;
+  color: #F5921A;
+}
+
+.mat-datepicker-toggle,
+.mat-datepicker-content .mat-calendar-next-button,
+.mat-datepicker-content .mat-calendar-previous-button,
+.ng-star-inserted {
+  color: #fff;
+}
+
+.mat-datepicker-content {
+  border-radius: 15px !important;
+  background: #2D2D37 !important;
+}
+
+.mat-datepicker-toggle .mat-icon-button {
+  position: absolute;
+  right: -10px;
+  top: 14px;
+}
+
+.mat-datepicker-toggle-default-icon {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.mat-calendar-body-today.mat-calendar-body-selected {
+    box-shadow: inset 0 0 0 0px rgba(0, 0, 0, 0.87);
+}
