@@ -9,9 +9,7 @@ $bonum-app-warn:    mat-palette($mat-red);
 $bonum-app-theme: mat-light-theme($bonum-app-primary, $bonum-app-accent, $bonum-app-warn);
 
 @include angular-material-theme($bonum-app-theme);
-
-.form__select{
-  &.mat-slider.mat-slider-horizontal{
+.mat-slider {
     width: 100%;
     padding: 0;
     height: 20px;
@@ -21,30 +19,31 @@ $bonum-app-theme: mat-light-theme($bonum-app-primary, $bonum-app-accent, $bonum-
       top: 9px;
       left: 4px;
       right: 4px;
+      & .mat-slider-thumb{
+        background-color: #009CFF;
+      }
     }
     & .mat-slider-track-wrapper{
       height: 1px;
     }
     & .mat-slider-track-background{
-      background-color: rgba(0,0,0,0);
+      background-color: rgba(255,255,255,1);
     }
     & .mat-slider-track-fill{
-      background-color: #F5921A;
+      background-color: #009CFF;
     }
-    & .mat-slider-thumb{
-      background-color: #F5921A;
-    }
+    
     & .mat-slider-thumb-container{
       transition: none;
     }
     &.mat-slider-min-value{
       & .mat-slider-thumb{
         border: none;
-        background-color: #F5921A;
+        background-color: #009CFF;
       }
     }
   }
-}
+
 
 .mat-calendar {
   background: #2D2D37;

@@ -42,6 +42,8 @@ export class AppComponent implements OnInit {
   public cost_apartsments = 0;
   public amount_rental = 0;
   public salary_every_year = [];
+  public spending_every_year = [];
+  public cost_rental_every_year = [];
 
   public currentDate = new Date();
   constructor(private fb: FormBuilder) {}
@@ -71,17 +73,24 @@ export class AppComponent implements OnInit {
   getResult() {
     this.getTerm();
     this.getAmount();
+    this.forecast();
   }
 
   getTerm() {
-    const value = this.fg.value;
-    let cost_apartaments = value.cost_apartaments * 1000000;
-    let salary = value.salary * 1000;
-    let spending = value.spending * 1000;
-    let cost_rental = value.cost_rental * 1000;
-    let cash = value.cash * 1000;
-    const start_remain = cost_apartaments - cash;
-    let remain = start_remain;
+    let {
+      cost_apartaments,
+      cash,
+      salary,
+      spending,
+      cost_rental,
+    } = this.getFormData();
+    const {
+      percent_cost_change,
+      percent_salary_change,
+      percent_spending_change,
+      percent_cost_rental_change
+    } = this.getFormData();
+    let remain = cost_apartaments - cash;
     let cash_month = this.getCashMonth(salary, spending, cost_rental);
     let i = 0;
     while (remain > 0) {
@@ -89,11 +98,11 @@ export class AppComponent implements OnInit {
       cash_month = this.getCashMonth(salary, spending, cost_rental);
       cash = cash + cash_month;
       remain = (cost_apartaments - cash);
-      cost_apartaments = this.afterMonth(cost_apartaments, value.percent_cost_change);
-      spending = this.afterMonth(spending, value.percent_spending_change);
+      cost_apartaments = this.afterMonth(cost_apartaments, percent_cost_change);
+      spending = this.afterMonth(spending, percent_spending_change);
       if (i % 12 === 0) {
-        cost_rental = this.afterYear(cost_rental, value.percent_cost_rental_change);
-        salary = this.afterYear(salary, value.percent_salary_change);
+        cost_rental = this.afterYear(cost_rental, percent_cost_rental_change);
+        salary = this.afterYear(salary, percent_salary_change);
       }
       if ( i >= 500 ) {
         this.term(500, true);
@@ -104,17 +113,17 @@ export class AppComponent implements OnInit {
   }
 
   getAmount() {
+    let {
+      cost_apartaments,
+      cost_rental,
+    } = this.getFormData();
     const {
-       cost_apartaments,
       cash,
       percent_credit,
-      cost_rental,
       percent_cost_rental_change,
       percent_cost_change,
       term_credit
     } = this.getFormData();
-    let new_cost_rental = cost_rental;
-    let new_cost_apartaments = cost_apartaments;
     const amount = cost_apartaments - cash;
     const n = term_credit * 12;
     const i = percent_credit / 100 / 12;
@@ -123,14 +132,14 @@ export class AppComponent implements OnInit {
     let amount_rental = 0;
     for ( let j = 1; j <= n; j++) {
       if (j % 12 === 0) {
-        new_cost_rental = this.afterYear(new_cost_rental, percent_cost_rental_change);
-        new_cost_apartaments = this.afterYear(new_cost_apartaments, percent_cost_change);
+        cost_rental = this.afterYear(cost_rental, percent_cost_rental_change);
+        cost_apartaments = this.afterYear(cost_apartaments, percent_cost_change);
       }
-      amount_rental += new_cost_rental;
+      amount_rental += cost_rental;
     }
-    this.cost_apartsments = Math.round(new_cost_apartaments);
+    this.cost_apartsments = Math.round(cost_apartaments);
     this.amount_rental = Math.round(amount_rental);
-    this.amount_accumulate = Math.round(new_cost_apartaments - cash + amount_rental);
+    this.amount_accumulate = Math.round(cost_apartaments - cash + amount_rental);
     this.month_accumalate = Math.round(this.amount_accumulate / n);
   }
 
@@ -184,13 +193,24 @@ export class AppComponent implements OnInit {
       : (month <= 4) ? ' и ' + month + ' месяца'
       : ' и ' + month + ' месяцев';
     this.term_accumulation = 'Накопишь через ' + year_phrase + month_phrase;
+  }
+
+  forecast() {
     this.salary_every_year = [];
+    this.spending_every_year = [];
+    this.cost_rental_every_year = [];
     const {
       salary,
-      percent_salary_change
+      percent_salary_change,
+      spending,
+      percent_spending_change,
+      cost_rental,
+      percent_cost_rental_change
     } = this.getFormData();
-    for (let i = 0; i < year; i++) {
+    for (let i = 0; i < 10; i++) {
       this.salary_every_year.push(Math.round(this.afterYear(salary, percent_salary_change, i)));
+      this.spending_every_year.push(Math.round(this.afterYear(spending, percent_spending_change, i)));
+      this.cost_rental_every_year.push(Math.round(this.afterYear(cost_rental, percent_cost_rental_change, i)));
     }
   }
 }

@@ -102,8 +102,15 @@
     <div class="form__block">
       <h3 class="form__subtitle"> Если копить, учитывая финансы </h3>
       <p class="form__info"> {{term_accumulation}} </p>
-      <h3 class="form__subtitle"> Зарплата каждый год </h3>
+      <br>
+      <h3 class="form__subtitle"> Изменение зарплаты </h3>
       <p class="form__info" *ngFor="let item of salary_every_year; index as i">{{i + 1}}:  {{item}} </p>
+      <br>
+      <h3 class="form__subtitle"> Изменение затрат </h3>
+      <p class="form__info" *ngFor="let item of spending_every_year; index as i">{{i + 1}}:  {{item}} </p>
+      <br>
+      <h3 class="form__subtitle"> Изменение стоимости аренды </h3>
+      <p class="form__info" *ngFor="let item of cost_rental_every_year; index as i">{{i + 1}}:  {{item}} </p>
     </div>
   </div>
 </div>
