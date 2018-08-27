@@ -21,13 +21,19 @@ $bonum-app-theme: mat-light-theme($bonum-app-primary, $bonum-app-accent, $bonum-
       right: 4px;
       & .mat-slider-thumb{
         background-color: #009CFF;
+        &:hover {
+          background-color: #009CFF;
+        }
+      }
+      & .mat-slider-ticks{
+        background-color: #009CFF;
+        &:hover {
+          background-color: #009CFF;
+        }
       }
     }
     & .mat-slider-track-wrapper{
       height: 1px;
-    }
-    & .mat-slider-track-background{
-      background-color: rgba(255,255,255,1);
     }
     & .mat-slider-track-fill{
       background-color: #009CFF;
