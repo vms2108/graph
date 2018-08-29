@@ -158,6 +158,18 @@ export class CalculateService {
     }
   };
 
+  public graphic = {
+    data: [],
+    layout: {}
+  };
+
+  public graphic_data = {
+    accumulation: [],
+    hypothec: [],
+    x_accumulation: [],
+    x_hypothec: []
+  };
+
   constructor() {
     this.getBlocks();
   }
@@ -166,9 +178,12 @@ export class CalculateService {
     this.getTerm(value);
     this.getAmount(value);
     this.forecast(value);
+    this.getGraphic();
   }
 
   getTerm(value) {
+    const arrx = [];
+    const arry = [];
     let {
       cost_apartaments,
       cash,
@@ -186,6 +201,8 @@ export class CalculateService {
     let cash_month = this.getCashMonth(salary, spending, cost_rental);
     let i = 0;
     while (remain > 0) {
+      arrx.push(i);
+      arry.push(cash);
       i++;
       cash_month = this.getCashMonth(salary, spending, cost_rental);
       cash = cash + cash_month;
@@ -202,9 +219,13 @@ export class CalculateService {
       }
     }
     this.getPhrase(i, false);
+    this.graphic_data.accumulation = arry;
+    this.graphic_data.x_accumulation = arrx;
   }
 
   getAmount(value) {
+    const arrx = [];
+    const arry = [];
     let {
       cost_apartaments,
       cost_rental,
@@ -222,7 +243,13 @@ export class CalculateService {
     const month_hypothec = Math.round(amount * (i * Math.pow((1 + i), n) / (Math.pow((1 + i), n) - 1)));
     const amount_hypothec = month_hypothec * n;
     let amount_rental = 0;
+    let pay = cash;
+    arrx.push(0);
+    arry.push(pay);
     for ( let j = 1; j <= n; j++) {
+      pay += month_hypothec;
+      arrx.push(j);
+      arry.push(pay);
       if (j % 12 === 0) {
         cost_rental = this.afterYear(cost_rental, percent_cost_rental_change);
         cost_apartaments = this.afterYear(cost_apartaments, percent_cost_change);
@@ -244,6 +271,8 @@ export class CalculateService {
         : month_accumulate;
       });
     });
+    this.graphic_data.hypothec = arry;
+    this.graphic_data.x_hypothec = arrx;
   }
 
   forecast(value) {
@@ -322,5 +351,43 @@ export class CalculateService {
         value.settings = this.settings[value.settings];
       });
     });
+  }
+
+  getGraphic() {
+    const x1 = this.graphic_data.x_accumulation;
+    const x2 = this.graphic_data.x_hypothec;
+    const y1 = this.graphic_data.accumulation;
+    const y2 = this.graphic_data.hypothec;
+    const x = (x1 > x2) ? x1 : x2;
+    this.graphic = {
+      data: [
+        { x,
+          y: y1,
+          type: 'scatter',
+          mode: 'lines+points',
+          marker: {color: 'red'},
+          line: {color: '#009CFF'},
+          name: `Накопления за ${x1.length} месяцев`
+        },
+        { x,
+          y: y2,
+          type: 'scatter',
+          mode: 'lines+points',
+          marker: {color: 'red'},
+          line: {color: '#ff9d7c'},
+          name: `Ипотека за ${x2.length - 1} месяцев`
+        },
+      ],
+      layout: {
+        width: 620,
+        height: 440,
+        title: 'Сумма в зависимости от месяца',
+        paper_bgcolor: '#2D2D37',
+        plot_bgcolor: 'transparent',
+        font: {
+          color: 'white'
+        }
+      }
+    };
   }
 }

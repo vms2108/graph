@@ -30,15 +30,6 @@ export class MainComponent implements OnInit {
   public fg: FormGroup = new FormGroup({});
 
 
-  public graph = {
-    data: [
-      { x: [1, 2, 3], y: [2, 6, 3], type: 'scatter', mode: 'lines+points', marker: {color: 'red'} },
-      { x: [1, 2, 3], y: [2, 5, 3], type: 'bar' },
-    ],
-    layout: {width: 320, height: 240, title: 'A Fancy Plot'}
-  };
-
-
   constructor(
     private calc: CalculateService
   ) {}
@@ -64,15 +55,19 @@ export class MainComponent implements OnInit {
   });
  }
 
- get blocks() {
-   return this.calc.blocks;
- }
+  get blocks() {
+    return this.calc.blocks;
+  }
 
- get results() {
-  return this.calc.results;
- }
+  get results() {
+    return this.calc.results;
+  }
 
- get every_year() {
-  return this.calc.every_year;
- }
+  get every_year() {
+    return this.calc.every_year;
+  }
+
+  get graphic() {
+    return this.calc.graphic;
+  }
 }
