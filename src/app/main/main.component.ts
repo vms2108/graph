@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { CalculateService } from '../core/services/calculate.service';
+import Plotly from 'plotly.js-basic-dist';
 
 @Component({
   selector: 'app-main',
@@ -27,7 +28,56 @@ export class MainComponent implements OnInit {
   percent_cost_rental_change: 5
  };
 
+ private options = {
+  staticPlot: true,
+  displayModeBar: false
+};
+
+private layout: any = {
+  showlegend: false,
+  paper_bgcolor: 'transparent',
+  plot_bgcolor: 'transparent',
+  xaxis: {
+    type: 'linear',
+    range: [-350, 5500],
+    tickfont: {
+      size: 10,
+      color: '#7c7c90'
+    },
+    tickmode: 'linear',
+    tick0: 1000,
+    dtick: '1000',
+    zeroline: false
+  },
+  yaxis: {
+    type: 'linear',
+    autorange: true,
+    tickfont: {
+      size: 10,
+      color: '#7c7c90'
+    },
+    tickmode: 'auto',
+    nticks: 20
+  },
+  margin: {
+    l: 20,
+    r: 20,
+    b: 20,
+    t: 10,
+    pad: 0
+  },
+};
+
+  private chart: any;
+
   public fg: FormGroup = new FormGroup({});
+
+  @ViewChild('myChart')
+  myChart: ElementRef;
+
+  get chartEl() {
+    return this.myChart.nativeElement;
+  }
 
 
   constructor(
@@ -39,7 +89,6 @@ export class MainComponent implements OnInit {
   this.fg.valueChanges.subscribe(() => {
     this.getResult();
   });
-  console.log(this.every_year);
  }
 
  getResult() {
@@ -68,6 +117,14 @@ export class MainComponent implements OnInit {
   }
 
   get graphic() {
+    Plotly.newPlot(this.chartEl, this.calc.graphic.data, this.calc.graphic.layout, this.options);
     return this.calc.graphic;
+  }
+
+  get amount_month() {
+    return {
+      x1: this.calc.graphic_data.x_accumulation,
+      x2: this.calc.graphic_data.x_hypothec
+    };
   }
 }

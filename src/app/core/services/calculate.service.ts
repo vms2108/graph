@@ -366,16 +366,14 @@ export class CalculateService {
           type: 'scatter',
           mode: 'lines+points',
           marker: {color: 'red'},
-          line: {color: '#009CFF'},
-          name: `Накопления за ${x1.length} месяцев`
+          line: {color: '#009CFF'}
         },
         { x,
           y: y2,
           type: 'scatter',
           mode: 'lines+points',
           marker: {color: 'red'},
-          line: {color: '#ff9d7c'},
-          name: `Ипотека за ${x2.length - 1} месяцев`
+          line: {color: '#ff9d7c'}
         },
       ],
       layout: {
@@ -386,7 +384,8 @@ export class CalculateService {
         plot_bgcolor: 'transparent',
         font: {
           color: 'white'
-        }
+        },
+        showlegend: false
       }
     };
   }

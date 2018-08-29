@@ -57,4 +57,19 @@
       margin-right: 10px;
     }
   }
+  &__plot{
+    display: block;
+    width: 100%;
+    height: 350px;
+    & /deep/ .plot-container{
+      & .gridlayer{
+        & .xgrid{
+          stroke: rgba(124, 124, 144, .1) !important;
+        }
+        & .ygrid{
+          stroke: rgba(124, 124, 144, .1) !important;
+        }
+      }
+    }
+  }
 }
