@@ -311,7 +311,7 @@ export class CalculateService {
       this.term_accumulation = 'Слишком долго копить';
       return;
     }
-    const year = Math.round(n / 12);
+    const year = Math.floor(n / 12);
     const month = n % 12;
     if (year === 0 && month === 0) {
       this.term_accumulation = 'Уже накопил';
@@ -320,13 +320,15 @@ export class CalculateService {
     const last_num = Number(String(year).substr(String(year).length - 1, 1));
     const year_phrase = (year === 0) ? ''
       : (last_num === 0) ? year + ' лет'
+      : (last_num === 1) ? year + ' год '
       : (last_num < 4) ? year + ' года '
       : year + ' лет';
+    const and_phrase = (month === 0 || year === 0) ? '' : ' и ';
     const month_phrase = (month === 0) ? '' :
-      (month === 1) ? ' и ' + month + ' месяц'
-      : (month <= 4) ? ' и ' + month + ' месяца'
-      : ' и ' + month + ' месяцев';
-    this.term_accumulation = 'Накопишь через ' + year_phrase + month_phrase;
+      (month === 1) ? + month + ' месяц'
+      : (month <= 4) ? + month + ' месяца'
+      : + month + ' месяцев';
+    this.term_accumulation = 'Накопишь через ' + year_phrase + and_phrase + month_phrase;
   }
 
   getFormData(value) {
@@ -377,15 +379,15 @@ export class CalculateService {
         },
       ],
       layout: {
-        width: 620,
-        height: 440,
+        // width: 620,
+        // height: 440,
         title: 'Сумма в зависимости от месяца',
         paper_bgcolor: '#2D2D37',
         plot_bgcolor: 'transparent',
         font: {
           color: 'white'
         },
-        showlegend: false
+        showlegend: false,
       }
     };
   }

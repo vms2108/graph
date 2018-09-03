@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { CalculateService } from '../core/services/calculate.service';
 import Plotly from 'plotly.js-basic-dist';
@@ -8,7 +8,7 @@ import Plotly from 'plotly.js-basic-dist';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, AfterViewInit {
 
 
  public initial_data = {
@@ -91,8 +91,13 @@ private layout: any = {
   });
  }
 
+ ngAfterViewInit() {
+  this.chart = Plotly.newPlot(this.chartEl, this.calc.graphic.data, this.calc.graphic.layout, this.options);
+}
+
  getResult() {
   this.calc.getResult(this.fg.value);
+  this.chart = Plotly.newPlot(this.chartEl, this.calc.graphic.data, this.calc.graphic.layout, this.options);
  }
 
  startData() {
@@ -117,7 +122,6 @@ private layout: any = {
   }
 
   get graphic() {
-    Plotly.newPlot(this.chartEl, this.calc.graphic.data, this.calc.graphic.layout, this.options);
     return this.calc.graphic;
   }
 
